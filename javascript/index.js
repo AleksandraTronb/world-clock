@@ -1,5 +1,6 @@
 function updateTime() {
   let SydneyElement = document.querySelector("#sydney");
+
   let SydneyDateElement = SydneyElement.querySelector(".date");
   let SydneyTimeElement = SydneyElement.querySelector(".time");
   let SydneyTime = moment().tz("Australia/Sydney");
@@ -7,11 +8,13 @@ function updateTime() {
   SydneyTimeElement.innerHTML = SydneyTime.format(
     "h:mm:ss [<small>]A[</small>]"
   );
+
   //[]- js misses everithing in square brackets
   /*sydneyTimeElement.innerHTML = `${sydneyTime.format(
   "h:mm:ss"
 )} <small>${sydneyTime.format("A")}</small>`;*/
   let LondonElement = document.querySelector("#london");
+
   let LondonDateElement = LondonElement.querySelector(".date");
   let LondonTimeElement = LondonElement.querySelector(".time");
   let LondonTime = moment().tz("Europe/London");
@@ -23,9 +26,10 @@ function updateTime() {
 
 function updateCityTime(event) {
   let cityTimeZone = event.target.value;
-  console.log(cityTimeZone);
+  if (cityTimeZone === "current") {
+    cityTimeZone = moment.tz.guess();
+  }
   let cityName = cityTimeZone.replace("_", " ").split("/")[1];
-  console.log(cityName);
   let cityTime = moment().tz(cityTimeZone);
   let cityElement = document.querySelector("#city");
   cityElement.innerHTML = `
@@ -39,6 +43,7 @@ function updateCityTime(event) {
           )} <small>${cityTime.format("A")}</small></div>
         </div>`;
 }
+
 updateTime();
 setInterval(updateTime, 1000);
 
