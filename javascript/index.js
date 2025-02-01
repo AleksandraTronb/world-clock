@@ -31,26 +31,9 @@ function updateCityTime(event) {
     cityTimeZone = moment.tz.guess();
   }
   let cityName = cityTimeZone.replace("_", " ").split("/")[1];
-  /*for (i = len - 1; i > -1; i--) {
-  document.getElementById("citySelect").remove(i);
-}*/
-  setInterval(function () {
-    console.log("Hi");
-    let cityTime = moment().tz(cityTimeZone);
-    let cityElement = document.querySelector("#city");
-    cityElement.innerHTML = `
-  <div class="cities" >
-          <div>
-            <h2>${cityName}</h2>
-            <div class="date">${cityTime.format("LL")}</div>
-          </div>
-          <div class="time">${cityTime.format(
-            "h:mm:ss"
-          )} <small>${cityTime.format("A")}</small></div>
-        </div>
-        <a href="/">All cities</a>`;
-  }, 1000);
-  /*let cityElement = document.querySelector("#city");
+
+  let cityTime = moment().tz(cityTimeZone);
+  let cityElement = document.querySelector("#city");
   cityElement.innerHTML = `
   <div class="cities" >
           <div>
@@ -61,15 +44,17 @@ function updateCityTime(event) {
             "h:mm:ss"
           )} <small>${cityTime.format("A")}</small></div>
         </div>
-        <a href="/">All cities</a>`;*/
+        <a href="/">All cities</a>`;
+  setTimeout(() => {
+    updateCityTime(event);
+  }, 1000);
 }
+setTimeout(() => {
+  updateCityTime(event);
+}, 1000);
 
 updateTime();
 setInterval(updateTime, 1000);
 
 let citySelelctElement = document.querySelector("#citySelect");
 citySelelctElement.addEventListener("change", updateCityTime);
-/*document.getElementById("citySelect").onchange = function () {
-  alert(this.value);
-  updateCityTime();
-};*/
